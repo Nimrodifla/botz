@@ -7,7 +7,7 @@ var app = express();
 
 const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 80;
-const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"><img src="https://i.imgur.com/OIBEwul.png"/></head>';
+const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"><img src="https://i.imgur.com/OIBEwul.png"/><title>בנק יותם בוץ ושות</title></head>';
 
 // all data from DB
 var USERS = []; // list of: {userid: id, hash: hash}
