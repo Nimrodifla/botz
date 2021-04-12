@@ -6,7 +6,7 @@ const { json } = require('body-parser');
 var app = express();
 
 const english = /^[A-Za-z0-9]*$/;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"></head>';
 
 // all data from DB
@@ -85,7 +85,7 @@ app.get('/registerUser/:username/:password', (req, res)=>{
             console.log('New register! ' + username);
         }
         else{
-            res.sendFile(__dirname + 'userTaken.html');
+            res.sendFile(__dirname + '/userTaken.html');
         }
     });
 });
@@ -123,7 +123,7 @@ app.get('/user/:hash', (req, res)=>{
             let obj = result[0];
 
             // user page
-            res.send(headTag + "<h3>1 B = 0.2 ₪</h3>Username: @" + obj.username + "<br>Botz: " + obj.botz + '<br>trasfer to <input id="username" type="text" placeholder="user to transfer to" /><input id="amount" type="number" placeholder="amount to transfer" /> botz <button onclick="transfer()">trasfer!</button><script>function transfer() {let username = document.getElementById("username").value; let amount = document.getElementById("amount").value; window.location.href = "http://" + window.location.hostname + "/transfer/' + hash + '/" + username + "/" + amount; }</script>');
+            res.send(headTag + "<h3>1 B = 0.2 ₪</h3>Username: @" + obj.username + "<br>You have: " + obj.botz + ' B<br>trasfer to <input id="username" type="text" placeholder="user to transfer to" /><input id="amount" type="number" placeholder="amount to transfer" /> B <button onclick="transfer()">trasfer!</button><script>function transfer() {let username = document.getElementById("username").value; let amount = document.getElementById("amount").value; window.location.href = "http://" + window.location.hostname + "/transfer/' + hash + '/" + username + "/" + amount; }</script>');
         });
     }
 });

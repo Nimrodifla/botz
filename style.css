@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 body {
     background-color: DodgerBlue;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+}
+
+button {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    background-color: orange;
+    border-style: none;
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+}
+
+button:hover{
+    background-color: white;
+}
+
+input {
+    border-radius: 10px;
+    font-family: 'Ubuntu';
+    padding: 10px 5px;
+    border-style: none;
+    outline: none;
 }
