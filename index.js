@@ -9,7 +9,6 @@ const port = process.env.PORT || 3000;
 const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>';
 
 // all data from DB
-var DATA = [];
 var USERS = []; // list of: {userid: id, hash: hash}
 
 // DB
