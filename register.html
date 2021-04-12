@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <input id='username' type="text" placeholder="Create username" /><br>
+            <input id='password' type="text" placeholder="Create password" /><br>
+            <button onclick="register()">Register</button>
+        </div>
+    </body>
+    <script>
+
+        let username = document.getElementById('username');
+        let password = document.getElementById('password');
+
+        function register()
+        {
+            window.location.href = ('http://' + window.location.hostname + '/registerUser/' + username.value + '/' + password.value);
+        }
+    </script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <input id='username' type="text" /><br>
+            <input id='password' type="password" /><br>
+            <button onclick="login()">Log In</button><br>
+            <button onclick="register()">if you don't have an account - register</button>
+        </div>
+    </body>
+    <script>
+        //import Axios from 'axios';
+
+        let username = document.getElementById('username');
+        let password = document.getElementById('password');
+
+        function login()
+        {
+            if (username.value != '' && password.value != '')
+            {
+                window.location.href = ('http://' + window.location.hostname + '/login/' + username.value + '/' + password.value);
+            }
+        }
+
+        function register()
+        {
+            window.location.href = 'http://' + window.location.hostname + '/register';
+        }
+    </script>
+</html>

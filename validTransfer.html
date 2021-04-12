@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h3>The transfer was successful!</h3>
+            <button onclick="ok()">OK!</button>
+        </div>
+    </body>
+    <script>
+
+        function ok()
+        {
+            // to user page
+            window.location.href = ('http://' + window.location.hostname + '/user/' + window.location.pathname.substr(window.location.pathname.indexOf('transfer/') + 9, 22));
+        }
+    </script>
+</html>
