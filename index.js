@@ -123,7 +123,7 @@ app.get('/user/:hash', (req, res)=>{
             let obj = result[0];
 
             // user page
-            res.send(headTag + "<h3>1 B = 0.2 ₪</h3>Username: @" + obj.username + "<br>You have: " + obj.botz + ' B<br>trasfer to <input id="username" type="text" placeholder="user to transfer to" /><input id="amount" type="number" placeholder="amount to transfer" /> B <button onclick="transfer()">trasfer!</button><script>function transfer() {let username = document.getElementById("username").value; let amount = document.getElementById("amount").value; window.location.href = "http://" + window.location.hostname + "/transfer/' + hash + '/" + username + "/" + amount; }</script>');
+            res.send(headTag + "<h3>1 B = 0.2 ₪</h3>Username: @" + obj.username + "<br>You have: " + obj.botz + ' B<br>trasfer to:<br><input id="username" type="text" placeholder="user to transfer to" /><br><input id="amount" type="number" placeholder="amount to transfer" /> B <br><button onclick="transfer()">trasfer!</button><script>function transfer() {let username = document.getElementById("username").value; let amount = document.getElementById("amount").value; window.location.href = "http://" + window.location.hostname + "/transfer/' + hash + '/" + username + "/" + amount; }</script>');
         });
     }
 });
