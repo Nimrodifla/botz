@@ -5,7 +5,7 @@ const express = require('express');
 const { json } = require('body-parser');
 var app = express();
 
-const port = 80;
+const port = process.env.PORT || 3000;
 const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>';
 
 // all data from DB
