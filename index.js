@@ -14,10 +14,10 @@ var USERS = []; // list of: {userid: id, hash: hash}
 
 // DB
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "24022004nL",
-    database: "botzcoin"
+    host: "eu-cdbr-west-01.cleardb.com",
+    user: "b02940b823a21c",
+    password: "2448401c",
+    database: "heroku_703457e09fdd844"
 });
 
 app.use(cors());
