@@ -27,3 +27,7 @@ input {
     border-style: none;
     outline: none;
 }
+
+img {
+    width: 50%;
+}
