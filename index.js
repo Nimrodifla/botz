@@ -31,6 +31,11 @@ function isValidUsername(username)
 }
 */
 
+// favicon
+app.get('/favicon.ico', (req, res)=>{
+    res.sendFile(__dirname + "/favicon.ico");
+});
+
 // main page
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/login.html");
@@ -72,6 +77,7 @@ app.get('/registerUser/:username/:password', (req, res)=>{
                     throw err;
             });
             res.sendFile(__dirname + '/login.html');
+            console.log('New register! ' + username);
         }
         else{
             res.sendFile(__dirname + 'userTaken.html');
@@ -89,8 +95,6 @@ app.get('/user/:hash', (req, res)=>{
     {
         let user = USERS[i];
 
-        console.log(user);
-        console.log(hash);
         if (user.hash == hash)
         {
             userLoggedIn = true;
@@ -101,7 +105,6 @@ app.get('/user/:hash', (req, res)=>{
     if (userLoggedIn == false)
     {
         // send user to main page
-        console.log("not log in");
         res.send('<!DOCTYPE html><html>' + headTag + 'loading...<script>window.location.href = "http://" + window.location.hostname + "/";</script></html>');
     }
     else{
@@ -226,7 +229,6 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
                 throw err;
             
             let obj = result[0];
-            console.log('botz: ' + obj.botz);
             if (parseFloat(obj.botz) >= parseFloat(amonut))
             {
                 // have that much!
@@ -245,7 +247,6 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
 
                 let obj = result[0];
                 let count = obj.count;
-                console.log('count: ' + count);
 
                 if (parseInt(count) == 1)
                 {
@@ -283,9 +284,6 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
                 else{
                     // ERROR: INVALID TRANSFER
                     res.sendFile(__dirname + '/invalidTransfer.html');
-                    console.log(hashExists);
-                    console.log(userHaveTranfserAmount);
-                    console.log(targetUserExists);
                 }
             });
         });
