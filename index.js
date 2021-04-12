@@ -7,7 +7,7 @@ var app = express();
 
 const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 3000;
-const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"></head>';
+const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"></head>';
 
 // all data from DB
 var USERS = []; // list of: {userid: id, hash: hash}
