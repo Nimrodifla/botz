@@ -36,6 +36,11 @@ app.get('/favicon.ico', (req, res)=>{
     res.sendFile(__dirname + "/favicon.ico");
 });
 
+// css
+app.get('/style.css', (req, res)=>{
+    res.sendFile(__dirname + "/style.css");
+});
+
 // main page
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/login.html");
