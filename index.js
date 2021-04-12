@@ -5,6 +5,7 @@ const express = require('express');
 const { json } = require('body-parser');
 var app = express();
 
+const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 3000;
 const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>';
 
@@ -22,6 +23,13 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+/*
+function isValidUsername(username)
+{
+    return english.test(username);
+}
+*/
 
 // main page
 app.get('/', (req, res)=>{
@@ -140,6 +148,12 @@ app.get('/login/:username/:password', (req, res)=>{
             validity = true;
 
             let hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+            // make sure there are no / in the hash
+            while (hash.includes('/'))
+            {
+                hash = hash.replace('/', 'N');
+            }
 
             let userLoggesInAlready = false;
             for (user in USERS)
