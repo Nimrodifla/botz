@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body {
-    background-color: DodgerBlue;
+    background: rgb(31,69,255);
+    background: -moz-linear-gradient(90deg, rgba(31,69,255,1) 0%, rgba(0,189,255,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(31,69,255,1) 0%, rgba(0,189,255,1) 100%);
+    background: linear-gradient(90deg, rgba(31,69,255,1) 0%, rgba(0,189,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1f45ff",endColorstr="#00bdff",GradientType=1);
     font-family: 'Ubuntu';
     font-weight: bold;
 }
@@ -9,7 +13,11 @@ body {
 button {
     font-family: 'Ubuntu';
     font-weight: bold;
-    background-color: orange;
+    background: rgb(255,170,31);
+    background: -moz-radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
+    background: radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffaa1f",endColorstr="#ff7c00",GradientType=1);
     border-style: none;
     border-radius: 10px;
     padding: 10px;
@@ -21,6 +29,11 @@ button:hover{
 }
 
 input {
+    background: rgb(255,255,255);
+    background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#cfcfcf",GradientType=1);
     border-radius: 10px;
     font-family: 'Ubuntu';
     padding: 10px 5px;
@@ -60,9 +73,18 @@ img {
 }
 
 select {
+    background: rgb(255,255,255);
+    background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(207,207,207,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#cfcfcf",GradientType=1);
     border-radius: 10px;
     font-family: 'Ubuntu';
     padding: 10px 5px;
     border-style: none;
     outline: none;
+}
+
+.creators {
+    font-size: smaller;
 }
