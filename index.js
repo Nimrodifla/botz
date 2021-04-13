@@ -132,11 +132,26 @@ app.get('/user/:hash', (req, res)=>{
             
             let obj = result[0];
 
-            // user page
-            userPage = replaceTamplates(userPage, '#username#', obj.username);
-            userPage = replaceTamplates(userPage, '#amount#', obj.botz);
-            userPage = replaceTamplates(userPage, '#hash#', hash);
-            res.send(userPage);
+            // get all users
+            sql = 'SELECT username FROM users';
+            db.query(sql, (err, result)=>{
+                if (err)
+                    throw err;
+
+                let resArr = []
+                result.map((user)=>{
+                    resArr.push('"@' + user.username + '"');
+                })
+
+                // resArr = ['"hello"', ...]
+
+                // user page
+                userPage = replaceTamplates(userPage, '#username#', obj.username);
+                userPage = replaceTamplates(userPage, '#amount#', obj.botz);
+                userPage = replaceTamplates(userPage, '#hash#', hash);
+                userPage = replaceTamplates(userPage, '#users#', resArr.toString());
+                res.send(userPage);
+            });
         });
     }
 });

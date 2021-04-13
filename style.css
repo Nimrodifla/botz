@@ -58,3 +58,11 @@ img {
 #amount {
     width: 150px;
 }
+
+select {
+    border-radius: 10px;
+    font-family: 'Ubuntu';
+    padding: 10px 5px;
+    border-style: none;
+    outline: none;
+}
