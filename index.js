@@ -68,6 +68,10 @@ app.get('/registerUser/:username/:password', (req, res)=>{
     {
         username = username.substr(1);
     }
+    if (username.endsWith(' '))
+    {
+        username = username.substr(0, username.length-1);
+    }
 
     // check if this username is already taken
     let sql = 'SELECT COUNT(id) AS "count" FROM users WHERE username LIKE "' + username + '"';
@@ -166,6 +170,10 @@ app.get('/login/:username/:password', (req, res)=>{
     {
         username = username.substr(1);
     }
+    if (username.endsWith(' '))
+    {
+        username = username.substr(0, username.length-1);
+    }
 
     // check if login info is valid
     let sql = 'SELECT id, COUNT(id) AS "count" FROM users WHERE username LIKE "' + username + '" AND password LIKE "' + password + '" LIMIT 1';
@@ -237,6 +245,10 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
     if (username.startsWith('@'))
     {
         username = username.substr(1);
+    }
+    if (username.endsWith(' '))
+    {
+        username = username.substr(0, username.length-1);
     }
     
     // check if hash exists
