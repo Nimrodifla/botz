@@ -314,6 +314,36 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
 
 });
 
+app.get('/logout/:hash', (req, res)=>{
+    let hash = req.params.hash;
+    let obj = null;
+
+    // if exists
+    let flag = true;
+    for (let i = 0; i < USERS.length && flag; i++)
+    {
+        let user = USERS[i];
+
+        if (user.hash == hash)
+        {
+            flag = false;
+            obj = user;
+        }
+    }
+
+    if (obj == null)
+    {
+        // user isnt log in 
+        res.sendFile(__dirname + '/404.html');
+    }
+    else{
+        // remove
+        USERS.splice(USERS.indexOf(obj), 1);
+
+        res.sendFile(__dirname + '/login.html');
+    }
+});
+
 // start server
 app.listen(port, function(err){
     if (err)
