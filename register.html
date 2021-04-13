@@ -11,7 +11,8 @@
         <div>
             <input id='username' type="text" placeholder="Create username (English)" /><br>
             <input id='password' type="text" placeholder="Create password" /><br>
-            <button onclick="register()">Register</button>
+            <button onclick="register()">Register</button><br>
+            <button onclick="login()">Back</button>
         </div>
     </body>
     <script>
@@ -23,5 +24,10 @@
         {
             window.location.href = ('http://' + window.location.hostname + '/registerUser/' + username.value + '/' + password.value);
         }
+
+        function login()
+    {
+        window.location.href = 'http://' + window.location.hostname + '/';
+    }
     </script>
 </html>

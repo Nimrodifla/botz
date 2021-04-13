@@ -145,7 +145,7 @@ app.get('/user/:hash', (req, res)=>{
                 let resArr = []
                 result.map((user)=>{
                     resArr.push('"@' + user.username + '"');
-                })
+                });
 
                 // resArr = ['"hello"', ...]
 
@@ -154,7 +154,43 @@ app.get('/user/:hash', (req, res)=>{
                 userPage = replaceTamplates(userPage, '#amount#', obj.botz);
                 userPage = replaceTamplates(userPage, '#hash#', hash);
                 userPage = replaceTamplates(userPage, '#users#', resArr.toString());
-                res.send(userPage);
+
+                sql = 'SELECT users.username, transfers.amount FROM transfers INNER JOIN users ON users.id = transfers.senderId WHERE transfers.senderId = ' + userId + ' OR transfers.reciverId = ' + userId + ' GROUP BY transfers.id';
+                db.query(sql, (err, result)=>{
+                    if (err)
+                        throw err;
+                    
+
+                    let transfersArr = [];
+                    for (let i = 0; i < result.length; i++)
+                    {
+                        let obj = result[i];
+                        transfersArr.push({sender: obj.username, reciver: '', amount: obj.amount});
+                    }
+
+                    sql = 'SELECT users.username FROM transfers INNER JOIN users ON users.id = transfers.reciverId WHERE transfers.senderId = ' + userId + ' OR transfers.reciverId = ' + userId + ' GROUP BY transfers.id';
+                    db.query(sql, (err, result)=>{
+                        if (err)
+                            throw err;
+                        
+                        for (let i = 0; i < result.length; i++)
+                        {
+                            let obj = result[i];
+                            transfersArr[i].reciver = obj.username;
+                        }
+
+                        let transfersFinalArr = [];
+                        transfersArr.map((obj)=>{
+                            transfersFinalArr.push("{sender: '" + obj.sender + "', reciver: '" + obj.reciver + "', amount: " + obj.amount + "}");
+                        });
+
+                        // transfersArr = [{sender: 'nimi', reciver: 'ido'},  ...]
+                        userPage = replaceTamplates(userPage, '#transfers#', transfersFinalArr.toString());
+
+                        // res
+                        res.send(userPage);
+                    });
+                });
             });
         });
     }
@@ -322,6 +358,25 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
                             throw err;
                     });
 
+                    // update the transfers history
+
+                    // get id of reciver
+                    sql = 'SELECT id FROM users WHERE username LIKE "' + username + '"';
+                    db.query(sql, (err, result)=>{
+                        if (err)
+                            throw err;
+
+                        let obj = result[0];
+                        let reciverId = obj.id;
+
+                        // add transfer to db
+                        sql = 'INSERT INTO transfers (senderId, reciverId, amount) VALUES (' + userId + ', ' + reciverId + ', ' + amonut + ')';
+                        db.query(sql, (err, result)=>{
+                            if (err)
+                                throw err;
+                        });
+                    });
+
 
                     // send res
                     res.sendFile(__dirname + '/validTransfer.html');
@@ -341,6 +396,7 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
 
 });
 
+// logout api
 app.get('/logout/:hash', (req, res)=>{
     let hash = req.params.hash;
     let obj = null;

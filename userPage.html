@@ -25,20 +25,47 @@
                 <!--input id="username" type="text" placeholder="user to transfer to" /---><br>
                 <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
                 <button onclick="transfer()">trasfer</button>
-            </div>
-            <br><br>
+            </div><br>
+
+            <div class="curr">
+                Transfers History<br><br>
+                <div id="transfers">
+
+                </div>
+            </div><br>
+            
+            <br>
             <span class="creators">Creators: Avichay, Nimnod and Ferfer</span>
         </center>
     </body>
     <script>
         let userDropdown = document.getElementById('users');
+        let transfersHistory = document.getElementById('transfers');
         let users = [#users#]; // should be error its ok :)
-        console.log(users);
+        let transfers = [#transfers#]; // should be error its ok :)
+
         // init dropdown
         userDropdown.innerHTML += '<option value="Select user">Select user</option>';
         users.map((user)=>{
             userDropdown.innerHTML += '<option value="' + user + '">' + user + '</option>';
         });
+
+
+        // init transfers history
+        if (transfers.length > 0)
+        {
+            transfers.map((deal)=>{
+                let sender = deal.sender;
+                let reciver = deal.reciver;
+                let amount = deal.amount;
+
+                transfersHistory.innerHTML += '<span class="transfer">' + sender + ' --' + amount + '-> ' + reciver + '</span><br>';
+            });
+        }
+        else
+        {
+            transfersHistory.innerHTML += 'no transfers. LOSER!';
+        }
 
 
         function transfer() {
