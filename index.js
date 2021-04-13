@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
@@ -24,12 +25,16 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-/*
-function isValidUsername(username)
+// replaces tamplates in html files
+function replaceTamplates(htmlString, original, replacment)
 {
-    return english.test(username);
+    while (String(htmlString).includes(original))
+    {
+        htmlString = String(htmlString).replace(original, replacment);
+    }
+
+    return htmlString;
 }
-*/
 
 // favicon
 app.get('/favicon.ico', (req, res)=>{
@@ -92,10 +97,15 @@ app.get('/registerUser/:username/:password', (req, res)=>{
 
 // user page
 app.get('/user/:hash', (req, res)=>{
-    // if hash exists
+    
     let hash = req.params.hash;
     let userLoggedIn = false;
     let userId = -1;
+
+    // reads userPage tamplate
+    let userPage = fs.readFileSync(__dirname + "/userPage.html").toString();
+
+    // if hash exists
     for (let i = 0; i < USERS.length; i++)
     {
         let user = USERS[i];
@@ -123,7 +133,10 @@ app.get('/user/:hash', (req, res)=>{
             let obj = result[0];
 
             // user page
-            res.send(headTag + "<h3>1 B = 0.2 ₪</h3>Username: @" + obj.username + "<br>You have: " + obj.botz + ' B<br><br>transfer to:<br><input id="username" type="text" placeholder="user to transfer to" /><br><input id="amount" type="number" placeholder="amount to transfer" /> B <br><button onclick="transfer()">trasfer!</button><script>function transfer() {let username = document.getElementById("username").value; let amount = document.getElementById("amount").value; window.location.href = "http://" + window.location.hostname + "/transfer/' + hash + '/" + username + "/" + amount; }</script>');
+            userPage = replaceTamplates(userPage, '#username#', obj.username);
+            userPage = replaceTamplates(userPage, '#amount#', obj.botz);
+            userPage = replaceTamplates(userPage, '#hash#', hash);
+            res.send(userPage);
         });
     }
 });

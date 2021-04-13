@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <title>בנק יותם בוץ ושות</title>
+    </head>
+    <body>
+        <center>
+            <img src="https://i.imgur.com/OIBEwul.png"/>
+            <h3 class="curr">1<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/>= 0.2 ₪</h3>
+            <div class="info">
+                @#username#<br>
+                You have: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
+            </div>
+            <br>
+
+            Transfer<br>
+            <input id="username" type="text" placeholder="user to transfer to" /><br>
+            <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
+            <button onclick="transfer()">trasfer</button>
+        </center>
+    </body>
+    <script>
+        function transfer() {
+            let username = document.getElementById("username").value;
+            let amount = document.getElementById("amount").value;
+            window.location.href = "http://" + window.location.hostname + "/transfer/#hash#/" + username + "/" + amount;
+        }
+    </script>
+</html>
