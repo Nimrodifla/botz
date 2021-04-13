@@ -14,15 +14,20 @@
             <div class="info">
                 @#username#<br>
                 You have: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
+                <button onclick="loadFunds()">Load funds!</button><br>
             </div>
             <br>
+            
+            <br>
 
-            Transfer<br>
-            to: <select name="users" id="users">
-            </select>
-            <!--input id="username" type="text" placeholder="user to transfer to" /---><br>
-            <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
-            <button onclick="transfer()">trasfer</button>
+            <div class="curr">
+                Transfer<br>
+                to: <select name="users" id="users">
+                </select>
+                <!--input id="username" type="text" placeholder="user to transfer to" /---><br>
+                <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
+                <button onclick="transfer()">trasfer</button>
+            </div>
         </center>
     </body>
     <script>
@@ -45,6 +50,11 @@
         function logout()
         {
             window.location.href = "http://" + window.location.hostname + "/logout/#hash#";
+        }
+
+        function loadFunds()
+        {
+            alert("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account! REMEMBER: 1B = 0.2₪");
         }
     </script>
 </html>
