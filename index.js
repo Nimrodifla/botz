@@ -184,6 +184,8 @@ app.get('/user/:hash', (req, res)=>{
                             transfersFinalArr.push("{sender: '" + obj.sender + "', reciver: '" + obj.reciver + "', amount: " + obj.amount + "}");
                         });
 
+                        transfersFinalArr = transfersFinalArr.reverse();
+
                         // transfersArr = [{sender: 'nimi', reciver: 'ido'},  ...]
                         userPage = replaceTamplates(userPage, '#transfers#', transfersFinalArr.toString());
 
