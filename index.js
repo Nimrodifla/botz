@@ -279,125 +279,134 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
     let amonut = req.params.amount;
     let userId = -1;
 
-    // delete @ from username
-    if (username.startsWith('@'))
+    // IF AMOUNT IS 0 - CANCEL
+    if (parseFloat(amonut) == 0)
     {
-        username = username.substr(1);
+        // CANCEL
+        // ERROR: INVALID TRANSFER
+        res.sendFile(__dirname + '/invalidTransfer.html');
     }
-    if (username.endsWith(' '))
-    {
-        username = username.substr(0, username.length-1);
-    }
-    
-    // check if hash exists
-    let hashExists = false;
-    for (let i = 0; i < USERS.length; i++)
-    {
-        let user = USERS[i];
-
-        if (user.hash == hash)
+    else{    
+        // delete @ from username
+        if (username.startsWith('@'))
         {
-            hashExists = true;
-            userId = user.id;
+            username = username.substr(1);
         }
-    }
+        if (username.endsWith(' '))
+        {
+            username = username.substr(0, username.length-1);
+        }
+        
+        // check if hash exists
+        let hashExists = false;
+        for (let i = 0; i < USERS.length; i++)
+        {
+            let user = USERS[i];
 
-    if (hashExists == true)
-    {
-        // check if user has that much
-        let userHaveTranfserAmount = false;
-        let sql = 'SELECT botz FROM users WHERE id = ' + userId;
-        db.query(sql, (err, result)=>{
-            if (err)
-                throw err;
-            
-            let obj = result[0];
-            if (parseFloat(obj.botz) >= parseFloat(amonut))
+            if (user.hash == hash)
             {
-                // have that much!
-                userHaveTranfserAmount = true;
+                hashExists = true;
+                userId = user.id;
             }
-            else{
-                userHaveTranfserAmount = false;
-            }
+        }
 
-            // check that target user exists
-            let targetUserExists = false;
-            sql = 'SELECT COUNT(id) AS "count" FROM users WHERE username LIKE "' + username + '"';
+        if (hashExists == true)
+        {
+            // check if user has that much
+            let userHaveTranfserAmount = false;
+            let sql = 'SELECT botz FROM users WHERE id = ' + userId;
             db.query(sql, (err, result)=>{
                 if (err)
                     throw err;
-
+                
                 let obj = result[0];
-                let count = obj.count;
-
-                if (parseInt(count) == 1)
+                if (parseFloat(obj.botz) >= parseFloat(amonut))
                 {
-                    // target user exists
-                    targetUserExists = true;
+                    // have that much!
+                    userHaveTranfserAmount = true;
                 }
                 else{
-                    targetUserExists = false;
+                    userHaveTranfserAmount = false;
                 }
 
-                // check that all requirement are filled
-                if (hashExists == true &&
-                    userHaveTranfserAmount == true &&
-                    targetUserExists == true)
-                {
-                    // make the transfer
-                    // take money
-                    sql = 'UPDATE users SET botz = (botz - ' + amonut + ') WHERE id = ' + userId;
-                    db.query(sql, (err, result)=>{
-                        if (err)
-                            throw err;
-                    });
+                // check that target user exists
+                let targetUserExists = false;
+                sql = 'SELECT COUNT(id) AS "count" FROM users WHERE username LIKE "' + username + '"';
+                db.query(sql, (err, result)=>{
+                    if (err)
+                        throw err;
 
-                    // add money
-                    sql = 'UPDATE users SET botz = (botz + ' + amonut + ') WHERE username LIKE "' + username + '"';
-                    db.query(sql, (err, result)=>{
-                        if (err)
-                            throw err;
-                    });
+                    let obj = result[0];
+                    let count = obj.count;
 
-                    // update the transfers history
+                    if (parseInt(count) == 1)
+                    {
+                        // target user exists
+                        targetUserExists = true;
+                    }
+                    else{
+                        targetUserExists = false;
+                    }
 
-                    // get id of reciver
-                    sql = 'SELECT id FROM users WHERE username LIKE "' + username + '"';
-                    db.query(sql, (err, result)=>{
-                        if (err)
-                            throw err;
-
-                        let obj = result[0];
-                        let reciverId = obj.id;
-
-                        // add transfer to db
-                        let today = new Date();
-                        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-                        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                        let dateTime = date+' '+time;
-                        sql = 'INSERT INTO transfers (senderId, reciverId, amount, time) VALUES (' + userId + ', ' + reciverId + ', ' + amonut + ', "' + dateTime + '")';
+                    // check that all requirement are filled
+                    if (hashExists == true &&
+                        userHaveTranfserAmount == true &&
+                        targetUserExists == true)
+                    {
+                        // make the transfer
+                        // take money
+                        sql = 'UPDATE users SET botz = (botz - ' + amonut + ') WHERE id = ' + userId;
                         db.query(sql, (err, result)=>{
                             if (err)
                                 throw err;
                         });
-                    });
+
+                        // add money
+                        sql = 'UPDATE users SET botz = (botz + ' + amonut + ') WHERE username LIKE "' + username + '"';
+                        db.query(sql, (err, result)=>{
+                            if (err)
+                                throw err;
+                        });
+
+                        // update the transfers history
+
+                        // get id of reciver
+                        sql = 'SELECT id FROM users WHERE username LIKE "' + username + '"';
+                        db.query(sql, (err, result)=>{
+                            if (err)
+                                throw err;
+
+                            let obj = result[0];
+                            let reciverId = obj.id;
+
+                            // add transfer to db
+                            let today = new Date();
+                            let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                            let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                            let dateTime = date+' '+time;
+                            sql = 'INSERT INTO transfers (senderId, reciverId, amount, time) VALUES (' + userId + ', ' + reciverId + ', ' + amonut + ', "' + dateTime + '")';
+                            db.query(sql, (err, result)=>{
+                                if (err)
+                                    throw err;
+                            });
+                        });
 
 
-                    // send res
-                    res.sendFile(__dirname + '/validTransfer.html');
-                }
-                else{
-                    // ERROR: INVALID TRANSFER
-                    res.sendFile(__dirname + '/invalidTransfer.html');
-                }
+                        // send res
+                        res.sendFile(__dirname + '/validTransfer.html');
+                    }
+                    else{
+                        // ERROR: INVALID TRANSFER
+                        res.sendFile(__dirname + '/invalidTransfer.html');
+                    }
+                });
             });
-        });
-    }
-    else
-    {
-        // ERROR: INVALID TRANSFER
-        res.sendFile(__dirname + '/invalidTransfer.html');
+        }
+        else
+        {
+            // ERROR: INVALID TRANSFER
+            res.sendFile(__dirname + '/invalidTransfer.html');
+        }
     }
 
 });
