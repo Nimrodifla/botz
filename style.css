@@ -22,7 +22,7 @@ button {
     border-radius: 10px;
     padding: 10px;
     outline: none;
-    box-shadow: 3px 3px black;
+    box-shadow: 3px 4px black;
 }
 
 button:hover{
@@ -89,4 +89,11 @@ select {
 .creators {
     font-size: smaller;
     color: white;
+}
+
+.transfer {
+    background-color: white;
+    color: dodgerblue;
+    padding: 10px;
+    border-radius: 20px;
 }
