@@ -429,6 +429,51 @@ app.get('/logout/:hash', (req, res)=>{
     }
 });
 
+app.get('/stats/:hash', (req, res)=>{
+    let hash = req.params.hash;
+    
+    let statsPage = fs.readFileSync(__dirname + "/statistics.html").toString();
+    let king;
+    let amount;
+    let users;
+
+    // get amount
+    let sql = 'SELECT SUM(botz) AS "sum" FROM users';
+    db.query(sql, (err, result)=>{
+        if (err)
+            throw err;
+        
+        amount = result[0].sum;
+
+        amount = String(amount).substr(0, 10);
+
+        // get num of users (users)
+        sql = 'SELECT COUNT(id) AS "count" FROM users';
+        db.query(sql, (err, result)=>{
+            if (err)
+                throw err;
+        
+            users = result[0].count;
+
+            // get king
+            sql = 'SELECT username, MAX(botz) AS "max" FROM users';
+            db.query(sql, (err, result)=>{
+                if (err)
+                    throw err;
+            
+                king = result[0].username;
+
+                statsPage = replaceTamplates(statsPage, '#king#', king);
+                statsPage = replaceTamplates(statsPage, '#amount#', amount);
+                statsPage = replaceTamplates(statsPage, '#users#', users);
+                statsPage = replaceTamplates(statsPage, '#hash#', hash);
+
+                res.send(statsPage);
+            });
+        });
+    });
+});
+
 // start server
 app.listen(port, function(err){
     if (err)
