@@ -18,7 +18,7 @@
         function ok()
         {
             // to user page
-            window.location.href = ('http://' + window.location.hostname + '/user/' + window.location.pathname.substr(window.location.pathname.indexOf('transfer/') + 9, 22));
+            window.location.href = ('http://' + window.location.hostname + '/user/' + window.location.pathname.substring(window.location.pathname.indexOf('transfer/') + 9, window.location.pathname.indexOf('/@')));
         }
     </script>
 </html>

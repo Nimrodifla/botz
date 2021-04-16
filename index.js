@@ -372,7 +372,11 @@ app.get('/transfer/:hash/:username/:amount', (req, res)=>{
                         let reciverId = obj.id;
 
                         // add transfer to db
-                        sql = 'INSERT INTO transfers (senderId, reciverId, amount) VALUES (' + userId + ', ' + reciverId + ', ' + amonut + ')';
+                        let today = new Date();
+                        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                        let dateTime = date+' '+time;
+                        sql = 'INSERT INTO transfers (senderId, reciverId, amount, time) VALUES (' + userId + ', ' + reciverId + ', ' + amonut + ', "' + dateTime + '")';
                         db.query(sql, (err, result)=>{
                             if (err)
                                 throw err;
