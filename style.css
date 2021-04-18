@@ -54,7 +54,7 @@ img {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0052ff",endColorstr="#009bff",GradientType=1);
     color: white;
     border-style: none;
-    border-radius: 30px;
+    border-radius: 20px;
     width: 75%;
     padding: 10px;
 }
