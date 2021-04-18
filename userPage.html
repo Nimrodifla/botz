@@ -10,7 +10,7 @@
         <center>
             <img src="https://i.imgur.com/OIBEwul.png"/><br><br>
             <button onclick="logout()">LogOut</button> <button onclick="stats()">Stats</button><br>
-            <h3 class="curr">1<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/>= 0.2 ₪</h3>
+            <h3 class="curr"><input id='ConvertB' class="convert" type="number" value="1" oninput="convert('b')" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/>= <input id='ConvertS' oninput="convert('s')" class="convert" type="number" value="#valueOfBotz#" />₪</h3>
             <div class="info">
                 @#username#<br>
                 You have: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
@@ -39,6 +39,7 @@
         </center>
     </body>
     <script>
+        const valueOfBotz = parseFloat('#valueOfBotz#');
         let userDropdown = document.getElementById('users');
         let transfersHistory = document.getElementById('transfers');
         let users = [#users#]; // should be error its ok :)
@@ -87,12 +88,27 @@
 
         function loadFunds()
         {
-            alert("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account! REMEMBER: 1B = 0.2₪");
+            alert("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account!\nDON'T WORRY: You can convert your Botz back to ₪ at ANY TIME!");
         }
 
         function stats()
         {
             window.location.href = "http://" + window.location.hostname + "/stats/#hash#";
+        }
+
+        function convert(changeBy)
+        {
+            let convertBotz = document.getElementById('ConvertB');
+            let convertShekels = document.getElementById('ConvertS');
+
+            if (changeBy == 'b') // change by botz -> shekels
+            {
+                convertShekels.value = convertBotz.value * valueOfBotz;
+            }
+            else // change by shekels -> botz
+            {
+                convertBotz.value = convertShekels.value / valueOfBotz;
+            }
         }
     </script>
 </html>

@@ -9,6 +9,8 @@ var app = express();
 const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 80;
 const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"><title>בנק יותם בוץ ושות</title></head><center><img src="https://i.imgur.com/OIBEwul.png"/>';
+// botz value before recycle
+const BOTZ_BASE_VALUE = 0.2;
 
 // all data from DB
 var USERS = []; // list of: {userid: id, hash: hash}
@@ -189,6 +191,10 @@ app.get('/user/:hash', (req, res)=>{
                         // transfersArr = [{sender: 'nimi', reciver: 'ido'},  ...]
                         userPage = replaceTamplates(userPage, '#transfers#', transfersFinalArr.toString());
 
+                        // value of botz
+                        let valueOfBotz = BOTZ_BASE_VALUE;
+                        userPage = replaceTamplates(userPage, '#valueOfBotz#', valueOfBotz.toString());
+
                         // res
                         res.send(userPage);
                     });
@@ -261,11 +267,11 @@ app.get('/login/:username/:password', (req, res)=>{
         if (validity == true && userHash != 'unvalid')
         {
             // send user to his page
-            whatToSend = headTag + "loading...<script>window.location.href = 'http://' + window.location.hostname + '/user/' + '" + userHash + "';</script>";
+            whatToSend = headTag + "<center>loading...</center><script>window.location.href = 'http://' + window.location.hostname + '/user/' + '" + userHash + "';</script>";
         }
         else{
             // go to main page
-            whatToSend = headTag + "loading...<script>window.location.href = 'http://' + window.location.hostname + '/';</script>";
+            whatToSend = headTag + "<center>loading...</center><script>window.location.href = 'http://' + window.location.hostname + '/';</script>";
         }
         res.send(whatToSend);
 
@@ -494,4 +500,4 @@ app.listen(port, function(err){
         throw err;
     }
     console.log("Server is ACTIVE");
-})
+});
