@@ -448,6 +448,7 @@ app.get('/logout/:hash', (req, res)=>{
     }
 });
 
+// stats
 app.get('/stats/:hash', (req, res)=>{
     let hash = req.params.hash;
     

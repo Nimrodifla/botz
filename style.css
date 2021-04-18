@@ -16,10 +16,11 @@ body {
 button {
     font-family: 'Ubuntu';
     font-weight: bold;
-    background: rgb(255,170,31);
-    background: -moz-radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
-    background: -webkit-radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
-    background: radial-gradient(circle, rgba(255,170,31,1) 0%, rgba(255,124,0,1) 100%);
+    background: rgb(255,255,255);
+    background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#858585",GradientType=1);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffaa1f",endColorstr="#ff7c00",GradientType=1);
     border-style: none;
     border-radius: 10px;
@@ -56,7 +57,11 @@ input {
 }
 
 .info {
-    background-color: rgb(219, 88, 0);
+    background: rgb(231,0,255);
+    background: -moz-radial-gradient(circle, rgba(231,0,255,1) 0%, rgba(128,0,255,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(231,0,255,1) 0%, rgba(128,0,255,1) 100%);
+    background: radial-gradient(circle, rgba(231,0,255,1) 0%, rgba(128,0,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e700ff",endColorstr="#8000ff",GradientType=1);
     color: white;
     border-style: none;
     border-radius: 30px;
