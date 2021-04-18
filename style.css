@@ -8,6 +8,9 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1f45ff",endColorstr="#00bdff",GradientType=1);
     font-family: 'Ubuntu';
     font-weight: bold;
+    margin: 0;
+    margin-top: 200px;
+    margin-bottom: 100px;
 }
 
 button {
@@ -36,10 +39,6 @@ input {
     padding: 10px 5px;
     border-style: none;
     outline: none;
-}
-
-img {
-    width: 50%;
 }
 
 .curr {
@@ -103,4 +102,22 @@ select {
     font-weight: bold;
     outline: none;
     text-align: center;
+}
+
+.fixedTitle {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgb(48,170,255);
+    background: -moz-linear-gradient(90deg, rgba(48,170,255,1) 0%, rgba(255,60,149,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(48,170,255,1) 0%, rgba(255,60,149,1) 100%);
+    background: linear-gradient(90deg, rgba(48,170,255,1) 0%, rgba(255,60,149,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#30aaff",endColorstr="#ff3c95",GradientType=1);
+    padding: 20px 0px;
+}
+
+.fixedImg {
+    display: block;
+    width: 50%;
 }
