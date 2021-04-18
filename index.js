@@ -48,6 +48,11 @@ app.get('/style.css', (req, res)=>{
     res.sendFile(__dirname + "/style.css");
 });
 
+// app
+app.get('/app', (req, res)=>{
+    res.sendFile(__dirname + '/bankYotam.apk');
+});
+
 // main page
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/login.html");
