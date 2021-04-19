@@ -97,7 +97,11 @@
 
         function loadFunds()
         {
-            alert("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account!\nDON'T WORRY: You can convert your Botz back to ₪ at ANY TIME!");
+            let res = confirm("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account!\nDON'T WORRY: You can convert your Botz back to ₪ at ANY TIME!");
+            if (res)
+            {
+                window.location.href = 'https://www.bitpay.co.il/app';
+            }
         }
 
         function stats()
