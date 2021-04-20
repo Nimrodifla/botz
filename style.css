@@ -101,8 +101,8 @@ select {
 }
 
 .transfer {
-    background-color: white;
-    color: dodgerblue;
+    background-color: dodgerblue;
+    color: rgb(18, 75, 133);
     padding: 10px;
     border-radius: 20px;
 }
@@ -137,4 +137,10 @@ select {
 .fixedImg {
     display: block;
     width: 50%;
+}
+
+.amount {
+    color: white;
+    font-size: large;
+    font-weight: bolder;
 }

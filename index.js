@@ -112,6 +112,7 @@ app.get('/user/:hash', (req, res)=>{
     let hash = req.params.hash;
     let userLoggedIn = false;
     let userId = -1;
+    let userUsername;
 
     // reads userPage tamplate
     let userPage = fs.readFileSync(__dirname + "/userPage.html").toString();
@@ -142,6 +143,7 @@ app.get('/user/:hash', (req, res)=>{
                 throw err;
             
             let obj = result[0];
+            userUsername = obj.username;
 
             // get all users
             sql = 'SELECT username FROM users';
@@ -188,7 +190,13 @@ app.get('/user/:hash', (req, res)=>{
 
                         let transfersFinalArr = [];
                         transfersArr.map((obj)=>{
-                            transfersFinalArr.push("{sender: '" + obj.sender + "', reciver: '" + obj.reciver + "', amount: " + obj.amount + "}");
+                            let iRecivedTheMoney;
+                            if (obj.sender == userUsername)
+                                iRecivedTheMoney = false;
+                            else
+                                iRecivedTheMoney = true;
+                            
+                            transfersFinalArr.push("{sender: '" + obj.sender + "', reciver: '" + obj.reciver + "', amount: " + obj.amount + ", iRecived: " + iRecivedTheMoney + "}");
                         });
 
                         transfersFinalArr = transfersFinalArr.reverse();

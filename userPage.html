@@ -69,7 +69,13 @@
                 let reciver = deal.reciver;
                 let amount = deal.amount;
 
-                transfersHistory.innerHTML += '<div class="transfer">@' + sender + ' > ' + amount + ' > @' + reciver + '</div><br>';
+                if (deal.iRecived)
+                {
+                    transfersHistory.innerHTML += '<div class="transfer">@' + sender + ' sent <strong class="amount"> ' + amount + ' </strong> to you!</div><br>';
+                }
+                else{
+                    transfersHistory.innerHTML += '<div class="transfer">You sent <strong class="amount"> ' + amount + ' </strong> to ' + reciver + ' </div><br>';
+                }
             });
         }
         else
