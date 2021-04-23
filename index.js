@@ -66,9 +66,11 @@ app.get('/register', (req, res)=>{
 });
 
 // HOME PAGE
+/*
 app.get('/:hash', (req, res)=>{
     let hash = req.params.hash;
 });
+*/
 
 // register api
 app.get('/registerUser/:username/:password', (req, res)=>{
