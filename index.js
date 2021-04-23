@@ -53,7 +53,7 @@ app.get('/app', (req, res)=>{
     res.sendFile(__dirname + '/bankYotam.apk');
 });
 
-// main page
+// login page
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/login.html");
 });
@@ -63,6 +63,11 @@ app.get('/', (req, res)=>{
 // register
 app.get('/register', (req, res)=>{
     res.sendFile(__dirname + '/register.html');
+});
+
+// HOME PAGE
+app.get('/:hash', (req, res)=>{
+    let hash = req.params.hash;
 });
 
 // register api
