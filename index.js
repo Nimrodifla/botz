@@ -66,11 +66,53 @@ app.get('/register', (req, res)=>{
 });
 
 // HOME PAGE
-/*
+
 app.get('/:hash', (req, res)=>{
     let hash = req.params.hash;
+    let userLoggedIn = false;
+    let userId = -1;
+    let userUsername;
+
+    // reads userPage tamplate
+    let homepage = fs.readFileSync(__dirname + "/homepage.html").toString();
+
+    // if hash exists
+    for (let i = 0; i < USERS.length; i++)
+    {
+        let user = USERS[i];
+
+        if (user.hash == hash)
+        {
+            userLoggedIn = true;
+            userId = user.id;
+        }
+    }
+
+    if (userLoggedIn == false)
+    {
+        // send user to main page
+        res.send('<!DOCTYPE html><html>' + headTag + 'loading...<script>window.location.href = "http://" + window.location.hostname + "/";</script></html>');
+    }
+    else
+    {
+        // user IS LOGGEDIN!
+        // get info on him!
+        let sql = ("SELECT * FROM users WHERE id = " + userId);
+        db.query(sql, (err, result)=>{
+            if (err)
+                throw err;
+            
+            let obj = result[0];
+            userUsername = obj.username;
+
+            homepage = replaceTamplates(homepage, '#hash#', hash);
+            homepage = replaceTamplates(homepage, '#username#', userUsername);
+
+            res.send(homepage);
+        });
+    }
 });
-*/
+
 
 // register api
 app.get('/registerUser/:username/:password', (req, res)=>{
@@ -287,7 +329,7 @@ app.get('/login/:username/:password', (req, res)=>{
         if (validity == true && userHash != 'unvalid')
         {
             // send user to his page
-            whatToSend = headTag + "<center>loading...</center><script>window.location.href = 'http://' + window.location.hostname + '/user/' + '" + userHash + "';</script>";
+            whatToSend = headTag + "<center>loading...</center><script>window.location.href = 'http://' + window.location.hostname + '/' + '" + userHash + "';</script>";
         }
         else{
             // go to main page

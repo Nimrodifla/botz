@@ -9,7 +9,8 @@
     </head>
     <body>
         <center>
-            <div class="fixedTitle"><img class="fixedImg" src="https://i.imgur.com/OIBEwul.png"/><button onclick="Home()">home</button></div>
+            <div class="fixedTitle"><img class="fixedImg" src="https://i.imgur.com/OIBEwul.png"/>
+                <button onclick="logout()">LogOut</button> <button onclick="home()">home</button> <button onclick="user()">My Page</button><br></div>
             <h1>Statistics</h1>
             <div class="curr">
                 <h3>King of BOTZ</h3>
@@ -30,9 +31,19 @@
     <script>
         let hash = '#hash#';
 
-        function Home()
+        function user()
         {
             window.location.href = "http://" + window.location.hostname + '/user/' + hash;
+        }
+
+        function home()
+        {
+            window.location.href = "http://" + window.location.hostname + "/" + hash;
+        }
+
+        function logout()
+        {
+            window.location.href = "http://" + window.location.hostname + "/logout/" + hash;
         }
         
     </script>

@@ -14,105 +14,39 @@
             <br></div>
 
             <h1>Home Page</h1>
-
-            <!--div class="curr">
-                Convert<br>
-                <input id='ConvertB' class="convert" type="number" value="1" oninput="convert('b')" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/>= <input id='ConvertS' oninput="convert('s')" class="convert" type="number" value="#valueOfBotz#" /> ₪
-            </div>
-            <br>
+            
             <div class="curr">
-                @#username#<br>
-                You have: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
-                <button onclick="loadFunds()">Load funds!</button><br>
+                <h1>Hello #username#!</h1>
             </div>
             <br>
 
             <div class="curr">
-                Transfer<br>
-                to: <select name="users" id="users">
-                </select>
-                <br>
-                <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
-                <button onclick="transfer()">trasfer</button>
-            </div><br>
-
-            <div class="curr">
-                Transfers History<br><br>
-                <div id="transfers">
-
-                </div>
-            </div><br>
+                <h3>What's BOTZ?</h3>
+                <p>
+                BOTZ is a crypto currency.<br>
+                You can use BOTZ to pay your friends, you can recive BOTZ from your friends.<br>
+                You can get BOTZ by converting your Shekels to BOTZ, but dont worry, you can convert your BOTZ back to Shekels at any time!<br>
+                </p>
+            </div>
+            <br>
 
             <div class="curr">
                 App For Android<br>
                 <img onclick="app()" src="https://www.aabike.co.il/wp-content/uploads/2018/12/google-play-badge-1.png" />
-            </div--->
+            </div>
+
+            <br>
             
             <br>
             <span class="creators">Creators: Avichay, Nimnod and Ferfer</span>
         </center>
     </body>
     <script>
-        const valueOfBotz = parseFloat('#valueOfBotz#');
-        let userDropdown = document.getElementById('users');
-        let transfersHistory = document.getElementById('transfers');
-        let users = [#users#]; // should be error its ok :)
-        let transfers = [#transfers#]; // should be error its ok :)
-
-        // init dropdown
-        userDropdown.innerHTML += '<option value="Select user">Select user</option>';
-        users.map((user)=>{
-            userDropdown.innerHTML += '<option value="' + user + '">' + user + '</option>';
-        });
-
-
-        // init transfers history
-        if (transfers.length > 0)
-        {
-            transfers.map((deal)=>{
-                let sender = deal.sender;
-                let reciver = deal.reciver;
-                let amount = deal.amount;
-
-                if (deal.iRecived)
-                {
-                    transfersHistory.innerHTML += '<div class="transfer">@' + sender + ' sent <strong class="amount"> ' + amount + ' </strong> to you!</div><br>';
-                }
-                else{
-                    transfersHistory.innerHTML += '<div class="transfer">You sent <strong class="amount"> ' + amount + ' </strong> to @' + reciver + ' </div><br>';
-                }
-            });
-        }
-        else
-        {
-            transfersHistory.innerHTML += 'no transfers. LOSER!';
-        }
-
-
-        function transfer() {
-            let username = document.getElementById("users").value;
-            let amount = document.getElementById("amount").value;
-            if (parseFloat(amount) != 0)
-            {
-                window.location.href = "http://" + window.location.hostname + "/transfer/#hash#/" + username + "/" + amount;
-            }
-            else{
-                alert("Can't transfer 0 B...");
-            }
-        }
+        let hash = '#hash#';
 
         function logout()
         {
             window.location.href = "http://" + window.location.hostname + "/logout/#hash#";
-        }
-
-        function loadFunds()
-        {
-            let res = confirm("Send ₪ to 0542061152 (Nimi) on BIT and Botz will load on your account!\nDON'T WORRY: You can convert your Botz back to ₪ at ANY TIME!");
-            if (res)
-            {
-                window.location.href = 'https://www.bitpay.co.il/app';
-            }
         }
 
         function stats()
@@ -120,24 +54,14 @@
             window.location.href = "http://" + window.location.hostname + "/stats/#hash#";
         }
 
-        function convert(changeBy)
-        {
-            let convertBotz = document.getElementById('ConvertB');
-            let convertShekels = document.getElementById('ConvertS');
-
-            if (changeBy == 'b') // change by botz -> shekels
-            {
-                convertShekels.value = convertBotz.value * valueOfBotz;
-            }
-            else // change by shekels -> botz
-            {
-                convertBotz.value = convertShekels.value / valueOfBotz;
-            }
-        }
-
         function app()
         {
             window.location.href = "http://" + window.location.hostname + "/app";
+        }
+
+        function user()
+        {
+            window.location.href = "http://" + window.location.hostname + "/user/" + hash;
         }
     </script>
 </html>
