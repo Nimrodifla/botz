@@ -53,6 +53,96 @@ app.get('/app', (req, res)=>{
     res.sendFile(__dirname + '/bankYotam.apk');
 });
 
+// after buying - add botz to their account
+app.get('/after/:hash/:price', (req, res)=>{
+    const feePrecent = 5; // remember paypal fees are > ~3%
+
+    let hash = req.params.hash;
+    let pricePayed = req.params.price;
+    let userLoggedIn = false;
+    let userId = -1;
+    let userUsername;
+
+    // reads userPage tamplate
+    let afterpage = fs.readFileSync(__dirname + "/afterbuy.html").toString();
+
+    // if hash exists
+    for (let i = 0; i < USERS.length; i++)
+    {
+        let user = USERS[i];
+
+        if (user.hash == hash)
+        {
+            userLoggedIn = true;
+            userId = user.id;
+        }
+    }
+
+    if (userLoggedIn == false)
+    {
+        // send user to main page
+        res.send('<!DOCTYPE html><html>' + headTag + 'loading...<script>window.location.href = "http://" + window.location.hostname + "/";</script></html>');
+    }
+    else
+    {
+        let amountBought = pricePayed * ((100 - feePrecent) / 100) / BOTZ_BASE_VALUE;
+        let sql = ("SELECT * FROM users WHERE id = " + userId);
+        db.query(sql, (err, result)=>{
+            if (err)
+                throw err;
+            
+            let obj = result[0];
+            userUsername = obj.username;
+
+            // add user amountBought
+            sql = 'UPDATE users SET botz = (botz + ' + amountBought + ') WHERE username LIKE "' + userUsername + '"';
+            db.query(sql, (err, result)=>{
+                if (err)
+                    throw err;
+
+                // send html
+                afterpage = replaceTamplates(afterpage, '#hash#', hash);
+                afterpage = replaceTamplates(afterpage, '#amount#', amountBought);
+                res.send(afterpage);
+            });
+        });
+    }
+});
+
+// buy
+app.get('/buy/:hash', (req, res)=>{
+    let hash = req.params.hash;
+    let userLoggedIn = false;
+    let userId = -1;
+    let userUsername;
+
+    // reads userPage tamplate
+    let buypage = fs.readFileSync(__dirname + "/buypage.html").toString();
+
+    // if hash exists
+    for (let i = 0; i < USERS.length; i++)
+    {
+        let user = USERS[i];
+
+        if (user.hash == hash)
+        {
+            userLoggedIn = true;
+            userId = user.id;
+        }
+    }
+
+    if (userLoggedIn == false)
+    {
+        // send user to main page
+        res.send('<!DOCTYPE html><html>' + headTag + 'loading...<script>window.location.href = "http://" + window.location.hostname + "/";</script></html>');
+    }
+    else
+    {
+        buypage = replaceTamplates(buypage, '#hash#', hash);
+        res.send(buypage);
+    }
+});
+
 // login page
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/login.html");
