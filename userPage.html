@@ -35,7 +35,7 @@
                 to: <select name="users" id="users">
                 </select>
                 <!--input id="username" type="text" placeholder="user to transfer to" /---><br>
-                <input id="amount" type="number" placeholder="amount to transfer" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
+                <input id="amount" type="number" placeholder="amount" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
                 <button onclick="transfer()">trasfer</button>
             </div><br>
 
@@ -79,11 +79,12 @@
 
                 if (deal.iRecived)
                 {
-                    transfersHistory.innerHTML += '<div class="transfer">@' + sender + ' sent <strong class="amount"> ' + amount + ' </strong> to you!</div><br>';
+                    transfersHistory.innerHTML += '<div class="transfer">@' + sender + ' sent <strong class="amount"> ' + amount + ' </strong> to you!</div>';
                 }
                 else{
-                    transfersHistory.innerHTML += '<div class="transfer">You sent <strong class="amount"> ' + amount + ' </strong> to @' + reciver + ' </div><br>';
+                    transfersHistory.innerHTML += '<div class="transfer">You sent <strong class="amount"> ' + amount + ' </strong> to @' + reciver + ' </div>';
                 }
+                //transfersHistory.innerHTML += '<br>';
             });
         }
         else

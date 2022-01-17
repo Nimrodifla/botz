@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body {
+    /*
     background: rgb(255,255,255);
     background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(194,194,194,1) 100%);
     background: -webkit-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(194,194,194,1) 100%);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(194,194,194,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#c2c2c2",GradientType=1);
+    */
+    background-color: rgb(246, 246, 246);
     font-family: 'Ubuntu';
     font-weight: bold;
     margin: 0;
@@ -18,17 +21,17 @@ body {
 button {
     font-family: 'Ubuntu';
     font-weight: bold;
-    font-size: larger;
+    font-size: large;
     background-color: dodgerblue;
-    box-shadow: 0px 0px 50px 5px dodgerblue;
-    border-style: solid;
+    /*box-shadow: 0px 0px 50px 5px dodgerblue;*/
+    border-style: /*solid*/ none;
     border-color: black;
     border-width: 3px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     outline: none;
     margin: 5px;
-    color: /*white*/ black;
+    color: /*white*/ white;
     
 }
 
@@ -41,10 +44,13 @@ input {
     background-color: white;
     border-radius: 10px;
     font-family: 'Ubuntu';
+    font-size: larger;
     padding: 10px 5px;
-    border-style: none;
+    border-style: solid;
+    border-color: rgb(216, 216, 216);
+    border-width: 1px;
     outline: none;
-    margin: 5px;
+    margin: 10px;
 }
 
 img {
@@ -52,14 +58,17 @@ img {
 }
 
 .curr {
+    /*
     background: rgb(0,82,255);
     background: -moz-linear-gradient(90deg, rgba(0,82,255,1) 0%, rgba(0,155,255,1) 100%);
     background: -webkit-linear-gradient(90deg, rgba(0,82,255,1) 0%, rgba(0,155,255,1) 100%);
     background: linear-gradient(90deg, rgba(0,82,255,1) 0%, rgba(0,155,255,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0052ff",endColorstr="#009bff",GradientType=1);
-    color: white;
+    */
+    background-color: white;
+    color: /*white*/ black;
     border-style: none;
-    border-radius: 20px;
+    border-radius: 10px;
     width: 75%;
     padding: 20px;
 }
@@ -67,6 +76,7 @@ img {
 .sign {
     width: 15px;
     padding: 4px 7px 0px 7px;
+    filter: invert(1);
 }
 
 .info {
@@ -106,16 +116,17 @@ select {
 }
 
 .transfer {
-    background-color: dodgerblue;
-    color: rgb(18, 75, 133);
+    background-color: rgb(246,246,246);
+    color: rgb(27, 27, 27);
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
+    margin: 10px 0px;
 }
 
 .convert {
-    background-color: dodgerblue;
+    background-color: /*dodgerblue*/ rgb(246, 246, 246);
     font-family: 'Ubuntu';
-    color: white;
+    color: /*white*/ black;
     width: 75px;
     font-size: large;
     font-weight: bold;
@@ -136,19 +147,20 @@ select {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0052ff",endColorstr="#009bff",GradientType=1);
     padding: 20px 0px;
     border-bottom-style: solid;
-    border-bottom-color: dodgerblue;
-    border-bottom-width: 10px;
+    border-bottom-color: black;
+    border-bottom-width: 3px;
 }
 
 .fixedImg {
     display: block;
-    width: 50%;
+    height: 100px;
+    width: auto;
     /**/
-    max-height: 100px;
+    /*max-height: 100px;*/
 }
 
 .amount {
-    color: white;
+    color: dodgerblue;
     font-size: large;
     font-weight: bolder;
 }
