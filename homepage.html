@@ -86,5 +86,20 @@
         {
             window.location.href = "http://" + window.location.hostname + "/user/" + hash;
         }
+
+        function convert(changeBy)
+        {
+            let convertBotz = document.getElementById('ConvertB');
+            let convertShekels = document.getElementById('ConvertS');
+
+            if (changeBy == 'b') // change by botz -> shekels
+            {
+                convertShekels.value = convertBotz.value * valueOfBotz;
+            }
+            else // change by shekels -> botz
+            {
+                convertBotz.value = convertShekels.value / valueOfBotz;
+            }
+        }
     </script>
 </html>

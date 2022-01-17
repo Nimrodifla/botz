@@ -25,8 +25,8 @@
             <br>
             <div class="curr">
                 @#username#<br>
-                You have: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br><br>
-                <button onclick="loadFunds()">Load funds!</button><br>
+                My Balance: #amount#<img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br><br>
+                <button onclick="loadFunds()">Buy BotzCoin</button><br>
             </div>
             <br>
 
@@ -36,7 +36,7 @@
                 </select>
                 <!--input id="username" type="text" placeholder="user to transfer to" /---><br>
                 <input id="amount" type="number" placeholder="amount" /><img class="sign" src="https://i.imgur.com/WaKvrmO.png"/><br>
-                <button onclick="transfer()">trasfer</button>
+                <button onclick="transfer()">Trasfer</button>
             </div><br>
 
             <div class="curr">
@@ -98,7 +98,11 @@
             let amount = document.getElementById("amount").value;
             if (parseFloat(amount) != 0)
             {
-                window.location.href = "http://" + window.location.hostname + "/transfer/#hash#/" + username + "/" + amount;
+                let con = confirm("Are you sure you want to transfer " + amount + " B to @" + username + "?");
+                if (con)
+                    window.location.href = "http://" + window.location.hostname + "/transfer/#hash#/" + username + "/" + amount;
+                else
+                    alert("Transfer Canceled");
             }
             else{
                 alert("Can't transfer 0 B...");

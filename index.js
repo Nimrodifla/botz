@@ -4,7 +4,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const { json } = require('body-parser');
+//const paypal = require('@paypal/checkout-server-sdk');
 var app = express();
+
+/*
+const PAYPAL_CLIENT_ID = 'AZoYQAO_XXD6yQD2E6kz3giODVVMi3xCtNgP4lj0ZgH0Lvew1aDk-xLmEzw_J73klQYOnpgEh3kOfTq_';
+const PAYPAL_SECRET = 'EAkw1-K0T_OmOFna-0_7ZByfmB5FYznKhGhdybQzFcPFuOWUSzD8dkvSfmsrfX2YLHCtE1ih41t7QFAt';
+
+const paypalClient = new paypal.core.PayPalHttpClient(new paypal.core.LiveEnvironment(PAYPAL_CLIENT_ID, PAYPAL_SECRET))
+*/
 
 const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 80;
@@ -56,10 +64,11 @@ app.get('/app', (req, res)=>{
 // logo
 app.get('/logo', (req, res)=>{
     res.sendFile(__dirname + '/logo.png');
-})
+});
 
 // after buying - add botz to their account
-app.get('/after/:hash/:price', (req, res)=>{
+app.post('/after/:hash/:price', (req, res)=>{
+
     const feePrecent = 5; // remember paypal fees are > ~3%
 
     let hash = req.params.hash;
@@ -88,29 +97,36 @@ app.get('/after/:hash/:price', (req, res)=>{
         // send user to main page
         res.send('<!DOCTYPE html><html>' + headTag + 'loading...<script>window.location.href = "http://" + window.location.hostname + "/";</script></html>');
     }
-    else
+    else // purchase is valid
     {
         let amountBought = pricePayed * ((100 - feePrecent) / 100) / BOTZ_BASE_VALUE;
-        let sql = ("SELECT * FROM users WHERE id = " + userId);
-        db.query(sql, (err, result)=>{
-            if (err)
-                throw err;
-            
-            let obj = result[0];
-            userUsername = obj.username;
 
-            // add user amountBought
-            sql = 'UPDATE users SET botz = (botz + ' + amountBought + ') WHERE username LIKE "' + userUsername + '"';
+        let verified = true;
+
+        if (verified)
+        {
+            // do actual money transfering
+            let sql = ("SELECT * FROM users WHERE id = " + userId);
             db.query(sql, (err, result)=>{
                 if (err)
                     throw err;
+                
+                let obj = result[0];
+                userUsername = obj.username;
 
-                // send html
-                afterpage = replaceTamplates(afterpage, '#hash#', hash);
-                afterpage = replaceTamplates(afterpage, '#amount#', amountBought);
-                res.send(afterpage);
+                // add user amountBought
+                sql = 'UPDATE users SET botz = (botz + ' + amountBought + ') WHERE username LIKE "' + userUsername + '"';
+                db.query(sql, (err, result)=>{
+                    if (err)
+                        throw err;
+
+                    // send html
+                    afterpage = replaceTamplates(afterpage, '#hash#', hash);
+                    afterpage = replaceTamplates(afterpage, '#amount#', amountBought);
+                    res.send(afterpage);
+                });
             });
-        });
+        }
     }
 });
 
