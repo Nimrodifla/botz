@@ -110,6 +110,7 @@ select {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
     border-radius: 10px;
     font-family: 'Ubuntu';
+    font-size: larger;
     padding: 10px 5px;
     border-style: solid;
     border-color: rgb(216, 216, 216);
