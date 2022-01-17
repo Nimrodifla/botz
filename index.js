@@ -8,7 +8,7 @@ var app = express();
 
 const english = /^[A-Za-z0-9]*$/;
 const port = process.env.PORT || 80;
-const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"><title>בנק יותם בוץ ושות</title></head><center><img src="https://i.imgur.com/OIBEwul.png"/>';
+const headTag = '<head><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><link rel="icon" type="image/png" href="https://i.imgur.com/3Vr8MdI.png"><link rel="stylesheet" type="text/css" href="/style.css"><title>בנק יותם בוץ ושות</title></head><center><img src="/logo"/>';
 // botz value before recycle
 const BOTZ_BASE_VALUE = 0.2;
 
@@ -52,6 +52,11 @@ app.get('/style.css', (req, res)=>{
 app.get('/app', (req, res)=>{
     res.sendFile(__dirname + '/bankYotam.apk');
 });
+
+// logo
+app.get('/logo', (req, res)=>{
+    res.sendFile(__dirname + '/logo.png');
+})
 
 // after buying - add botz to their account
 app.get('/after/:hash/:price', (req, res)=>{
